@@ -10,6 +10,11 @@ class PhotosController < ApplicationController
         render json: { error: 'User not found' } 
     end
 
+    def index
+      @user = user
+      @photo = @user.photo
+    end
+
 private
     def user
       User.find(params[:user_id])

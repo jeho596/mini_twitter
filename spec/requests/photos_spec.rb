@@ -41,5 +41,28 @@ RSpec.describe "Photos", type: :request do
 
     end
   end
+
+  describe "GET /photos - index action" do
+    subject do
+      get "/users/#{user.id}/photos", headers: headers
+      response
+    end
+
+    context 'shows photo' do
+      let(:user_id) { user.id }
+
+      before do
+        FactoryBot.create(:photo, user: user, url: 'img/user')
+      end
+
+      it do
+        expect(subject.parsed_body).to include(
+          {
+                'url' => 'img/user'
+          }
+        )
+      end
+    end
+  end
 end
 
